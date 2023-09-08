@@ -1,0 +1,68 @@
+creating the blog app
+
+adding revalidation
+(https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating
+https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config)
+
+Interval Revalidation
+revalidation config can only be place in page.tsx layout.tsx or route.tsx
+setting up revalidation app/posts/page.tsx
+revalidation can only be tested in build. Running npm run build, npm run start
+creating new.md blogpost to test 
+
+On-demand Revalidation
+(https://nextjs.org/docs/app/api-reference/functions/revalidateTag
+https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation)
+
+you can revalidated data based on Tag or on Path of the endpoint app/api/revalidate/route.ts
+
+you can't test it with npm run dev. npm run build -> npm start
+testing Insomnia http://localhost:3000/api/revalidate?path=/&secret=DaveGrayTeachesCode (comment app/page.tsx revalidation interval for testing)
+
+adding new blogs without redeplyoment
+moving to .mdx instead of .md
+initiating a new git repository specifically for storing .mdx (qt-blogposts)
+authenticating with github (github -> settings -> developer settings -> personal access tokens -> tokens classic -> generate new token)
+adding token to the .env.local
+
+Adding eslint rules ./eslintrc.json to accept ' in the middle of the string, in case mdx files will contain them
+(https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unescaped-entities.md)
+
+because we're going to use mdx we don't need gray-matter, remark, remark-html
+remaking ./lib/Posts.ts to work with mdx on github.
+getting api.github URI (https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28
+https://docs.github.com/en/rest/git/trees?apiVersion=2022-11-28#get-a-tree)
+WARNING you might need to supply sha to your tree link. You can get sha for your mdx project by running "git show HEAD --format=raw"
+WARNING raw.githubusercontent accepts case sensitive values for your name, project name, and git branch
+
+installing next-mdx-remote - package that works with MDX files
+npm i next-mdx-remote
+using compileMDX to process mdx data (lib/posts.ts)
+
+updating app/components/Posts.tsx
+updating app/posts/[postId]/page.tsx
+WARNING you cannot use revalidate = 0 and generateStaticParams at the same time
+
+enhancing markup display by adding additional packages
+npm i highlight.js rehype-highlight rehype-slug rehype-autolink-headings (WARNING newer versions have TS/compatibility issues)
+// NOTE other plugins may be used. Refer to next-mdx-remote docs
+updating lib/posts.tsx with new markup in compileMDX -> options
+updating app/posts/[postId]/page.tsx
+
+adding tags app/tags/[tag]/page.tsx
+
+finishing with the custom components.
+adding tailwind dependency for custom video elements
+npm i @tailwindcss/aspect-ratio@latest -D
+adding plugin dependency at tailwind.config.ts
+
+creating component app/components/Video.tsx and app/components/CustomImage.tsx
+
+adding custom components to the lib/posts.tsx compileMDX -> components
+
+adding image data to the next.config.js
+
+installing sharp as per next.js reccomendation for image optimization
+npm i sharp
+
+SEO
