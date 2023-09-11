@@ -82,3 +82,8 @@ on-demand revalidation app/api/revalidate/route.ts
 testing revalidation
 setting revalidate = 86400
 making a new build (npm run build)
+
+deployment
+deplying to vercel. (WARNING SITE_URL requires and existing URI. Need to redeploy after you have the URI and added SITE_URL env variable.)
+
+testing on-demand revalidation on deployed project
