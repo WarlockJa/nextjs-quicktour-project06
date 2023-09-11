@@ -2,7 +2,7 @@ import ListItem from "@/app/components/ListItem";
 import { getPostsMeta } from "@/lib/posts";
 import Link from "next/link";
 
-export const revalidate = 0;
+export const revalidate = 86400;
 
 type Props = {
   params: {
@@ -11,17 +11,17 @@ type Props = {
 };
 
 // can't have generateStaticParams with revalidate = 0
-// export async function generateStaticParams() {
-//   const posts = await getPostsMeta(); // deduped
+export async function generateStaticParams() {
+  const posts = await getPostsMeta(); // deduped
 
-//   if (!posts) return [];
+  if (!posts) return [];
 
-//   // getting ALL tags from all posts. Set removes duplicates after calling flat() on array of arrays with tags
-//   const tags = new Set(posts.map((post) => post.tags).flat());
+  // getting ALL tags from all posts. Set removes duplicates after calling flat() on array of arrays with tags
+  const tags = new Set(posts.map((post) => post.tags).flat());
 
-//   // returning array of objects with tags
-//   return Array.from(tags).map((tag) => ({ tag }));
-// }
+  // returning array of objects with tags
+  return Array.from(tags).map((tag) => ({ tag }));
+}
 
 export function generateMetadata({ params: { tag } }: Props) {
   return {

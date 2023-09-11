@@ -2,7 +2,7 @@ import Posts from "./components/Posts";
 import MyProfilePic from "./components/MyProfilePic";
 
 // revalidation interval config
-export const revalidate = 10; // seconds. normally would be a very high number 86400(day)
+export const revalidate = 86400; // seconds. normally would be a very high number 86400(day)
 
 export default function Home() {
   return (

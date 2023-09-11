@@ -5,8 +5,7 @@ import { notFound } from "next/navigation";
 // list of styles can be found in node_modules/highlight.js/styles
 import "highlight.js/styles/github-dark.css";
 
-// TODO temporary revalidation replace with an actual time
-export const revalidate = 0;
+export const revalidate = 86400;
 
 type Props = {
   params: {
@@ -15,15 +14,16 @@ type Props = {
 };
 
 // turning posts/[postId] into SSG since we know which values [postId] can take
-// export async function generateStaticParams() {
-//   const posts = await getPostsMeta(); // deduped
+// can't have generateStaticParams with revalidate = 0
+export async function generateStaticParams() {
+  const posts = await getPostsMeta(); // deduped
 
-//   if (!posts) return [];
+  if (!posts) return [];
 
-//   return posts.map((post) => ({
-//     postId: post.id,
-//   }));
-// }
+  return posts.map((post) => ({
+    postId: post.id,
+  }));
+}
 
 export async function generateMetadata({ params: { postId } }: Props) {
   const post = await getPostByName(`${postId}.mdx`); // deduped

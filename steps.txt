@@ -66,3 +66,19 @@ installing sharp as per next.js reccomendation for image optimization
 npm i sharp
 
 SEO
+installing next-sitemap
+npm i next-sitemap
+creating ./next-sitemap.config.js
+adding create sitemap command to package.json scripts -> "postbuild": "next-sitemap"
+
+testing revalidation for ISR
+setting app/page.tsx, app/tags/[tag]/page.tsx, app/posts/[postId]/page.tsx -> revalidate = 10
+uncomment generateStaticParams in app/tags/[tag]/page.tsx, app/posts/[postId]/page.tsx
+(WARNING can't have generateStaticParams with revalidate = 0)
+
+testing through the npm run build (ISR only works in build)
+
+on-demand revalidation app/api/revalidate/route.ts
+testing revalidation
+setting revalidate = 86400
+making a new build (npm run build)
